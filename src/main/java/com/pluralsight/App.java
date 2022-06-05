@@ -6,6 +6,7 @@ import com.pluralsight.repository.Dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class App {
     public static void main( String[] args ) {
@@ -24,6 +25,27 @@ public class App {
 
             System.out.println("Id: " + book.getId());
             System.out.println("Title: " + book.getTitle());
+
+            book.setTitle("Effective Java: Second Edition");
+
+            bookDao.update(book);
         }
+
+        //Book newBook = new Book();
+        //newBook.setTitle("The River Why");
+        //newBook = bookDao.create(newBook);
+
+        //System.out.println("Id: " + newBook.getId());
+        //System.out.println("Title: " + newBook.getTitle());
+
+        books = bookDao.findAll();
+
+        List<Book> updatedEntries =
+                books.stream()
+                        .peek(b -> b.setRating(5))
+                        .collect(Collectors.toList());
+        
+        bookDao.update(updatedEntries);
+
     }
 }
