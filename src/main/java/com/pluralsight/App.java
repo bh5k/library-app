@@ -31,21 +31,25 @@ public class App {
             bookDao.update(book);
         }
 
-        //Book newBook = new Book();
-        //newBook.setTitle("The River Why");
-        //newBook = bookDao.create(newBook);
+        Book newBook = new Book();
+        newBook.setTitle("The River Why");
+        newBook = bookDao.create(newBook);
 
-        //System.out.println("Id: " + newBook.getId());
-        //System.out.println("Title: " + newBook.getTitle());
+        System.out.println("Id: " + newBook.getId());
+        System.out.println("Title: " + newBook.getTitle());
 
-        books = bookDao.findAll();
+        int numDel = bookDao.delete(newBook);
 
-        List<Book> updatedEntries =
-                books.stream()
-                        .peek(b -> b.setRating(5))
-                        .collect(Collectors.toList());
-        
-        bookDao.update(updatedEntries);
+        System.out.println("Number of records deleted: " + numDel);
+
+//        books = bookDao.findAll();
+//
+//        List<Book> updatedEntries =
+//                books.stream()
+//                        .peek(b -> b.setRating(5))
+//                        .collect(Collectors.toList());
+//
+//        bookDao.update(updatedEntries);
 
     }
 }
